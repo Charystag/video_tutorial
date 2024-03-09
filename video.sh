@@ -114,7 +114,6 @@ main(){
 	shift $((OPTIND - 1))
 	commands_file="$1"
 	descriptions_file="$2"
-	echo "separator is : \`$separator'"
 	if [ "$commands_file" != "" ] && [ "$descriptions_file" != "" ] ; then run_commands_files "$commands_file" "$descriptions_file";  exit 0 ; fi
 	if [ "$commands_file" != "" ] ; then run_commands_file "$commands_file"; exit 0; fi
 	if [ "${#commands[@]}" -gt "0" ] ; then run_commands_arrays; exit 0 ; fi
