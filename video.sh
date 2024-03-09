@@ -106,10 +106,12 @@ However, you can change this setting using the option -s separator.
 For example, the command `./video.sh -s a commands_file` will use 'a' as a separator.
 While the command `./video.sh -s $'\t' command_file` will use the tab character as a separator.
 Running the script with the option '-m' will allow you to manually skip to the next instruction, instead of waiting for a timer
+Running the script with the option '-t' followed by a time (in seconds) will set the timer for the next instruction to the number
+of seconds specified on the command line, however any -m option will override any timer set in the script options
 -You can run the script this way :
-	./video.sh [-s separator] [-m] commands_file descriptions_file
+	./video.sh [-s separator] [-m] [-t time]  commands_file descriptions_file
 	./video.sh [-s separator] [-m] commands_file (with commands and descriptions separated by a '|' symbol)
-	./video.sh [-s separator] [-m]
+	./video.sh [-s separator] [-m] [-t time]
 Note: you can run :
 bash <(curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh || echo "echo man_reader couldn\'t be retrieved, exiting; exit 1") bash "QUOTING"
 to get more info about the construct : "$'character'"
