@@ -54,7 +54,6 @@ run_commands_file(){
 	declare description
 	declare	commands_file="$1"
 
-	echo "Here"
 	if [ "$commands_file" == "" ] ; then echo "Please provide at least a commands file "; exit 1; fi
 	while IFS="|" read -r command description
 	do
@@ -69,23 +68,53 @@ run_commands_arrays(){
 	done
 }
 
+:<<-PARSE_OPTIONS
+	Function that allows the parsing of the programm options using the getopts (and not getopt) POSIX utility
+	PARSE_OPTIONS
+parse_options(){
+	declare optstring="s:"
+	declare	option
+
+	while getopts "$optstring" option; do
+	case "$option" in
+		s)
+			separator="$OPTARG";;
+		?)
+			echo "Usage: ${0}: [-s separator] [commands_file [descriptions_file]]"; exit 2;;
+	esac
+	done
+}
+
 help(){
 	cat <<"HELP"
 Please either fill the commands and descriptions array in the script
 or run the script providing a commands_file and a descriptions_file
 You can specify commands that won't be printed (nor their descriptions)
 by prefixing the line with a '@'
+The default separator for a file that contains the command alongside their descriptions on the same line is '|'
+However, you can change this setting using the option -s separator.
+For example, the command `./video.sh -s a commands_file` will use 'a' as a separator.
+While the command `./video.sh -s $'\t' command_file` will use the tab character as a separator.
 -You can run the script this way :
-	./video.sh commands_file descriptions_file
-	./video.sh commands_file (with commands and descriptions separated by a '|' symbol)
-	./video.sh
+	./video.sh [-s separator] commands_file descriptions_file
+	./video.sh [-s separator] commands_file (with commands and descriptions separated by a '|' symbol)
+	./video.sh [-s separator]
+Note: you can run :
+bash <(curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh || echo "echo man_reader couldn\'t be retrieved, exiting; exit 1") bash "QUOTING"
+to get more info about the construct : "$'character'"
 HELP
 }
 
 main(){
-	declare commands_file="$1"
-	declare	descriptions_file="$2"
+	declare commands_file
+	declare	descriptions_file
+	declare separator="|"
 
+	parse_options "$@"
+	shift $((OPTIND - 1))
+	commands_file="$1"
+	descriptions_file="$2"
+	echo "separator is : \`$separator'"
 	if [ "$commands_file" != "" ] && [ "$descriptions_file" != "" ] ; then run_commands_files "$commands_file" "$descriptions_file";  exit 0 ; fi
 	if [ "$commands_file" != "" ] ; then run_commands_file "$commands_file"; exit 0; fi
 	if [ "${#commands[@]}" -gt "0" ] ; then run_commands_arrays; exit 0 ; fi
