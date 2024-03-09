@@ -12,29 +12,35 @@ declare -a descriptions
 #commands+=( "ls" )
 
 
+next_instruction(){
+	if [ "$manual_skip" -eq 0 ]
+	then
+		sleep "$1"
+	else
+		read -r -s -n 1
+	fi
+}
+
 print_command(){
 	local command="$1"
 	local description="$2"
-	local time="$3"
 
 	echo -n ">$command"
 	if [ "$description" != "" ] ; then echo " <-> $description"; else echo ""; fi
-	sleep "$time"
+	next_instruction "$timer"
 }
 
 print_and_run(){
 	local command="$1"
 	local description="$2"
-	local time="$3"
 
 	if [ "$command" = "" ]; then command=":"; fi
-	if [ "$time" = "" ] ; then time="5s"; fi
 	if [ "$description" = "" ]; then description="" ; fi
 	clear
-	if [ "${command:0:1}" != "@" ] ; then print_command "$command" "$description" "$time"
+	if [ "${command:0:1}" != "@" ] ; then print_command "$command" "$description"
 	else command="${command:1}" ; fi
 	if ! eval "$command" ; then return 1; fi
-	sleep "$time"
+	next_instruction "$timer"
 }
 
 run_commands_files(){
@@ -72,13 +78,17 @@ run_commands_arrays(){
 	Function that allows the parsing of the programm options using the getopts (and not getopt) POSIX utility
 	PARSE_OPTIONS
 parse_options(){
-	declare optstring="s:"
+	declare optstring="s:mt:"
 	declare	option
 
 	while getopts "$optstring" option; do
 	case "$option" in
 		s)
 			separator="$OPTARG";;
+		m)
+			manual_skip=1;;
+		t)
+			if [ "$manual_skip" -eq "0" ] ; then timer="$OPTARG"; fi;;
 		?)
 			echo "Usage: ${0}: [-s separator] [commands_file [descriptions_file]]"; exit 2;;
 	esac
@@ -95,10 +105,11 @@ The default separator for a file that contains the command alongside their descr
 However, you can change this setting using the option -s separator.
 For example, the command `./video.sh -s a commands_file` will use 'a' as a separator.
 While the command `./video.sh -s $'\t' command_file` will use the tab character as a separator.
+Running the script with the option '-m' will allow you to manually skip to the next instruction, instead of waiting for a timer
 -You can run the script this way :
-	./video.sh [-s separator] commands_file descriptions_file
-	./video.sh [-s separator] commands_file (with commands and descriptions separated by a '|' symbol)
-	./video.sh [-s separator]
+	./video.sh [-s separator] [-m] commands_file descriptions_file
+	./video.sh [-s separator] [-m] commands_file (with commands and descriptions separated by a '|' symbol)
+	./video.sh [-s separator] [-m]
 Note: you can run :
 bash <(curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh || echo "echo man_reader couldn\'t be retrieved, exiting; exit 1") bash "QUOTING"
 to get more info about the construct : "$'character'"
@@ -108,7 +119,11 @@ HELP
 main(){
 	declare commands_file
 	declare	descriptions_file
+	#separator may be used in the parse_options function
+	# shellcheck disable=SC2034
 	declare separator="|"
+	declare	-i timer=5
+	declare	-i manual_skip=0
 
 	parse_options "$@"
 	shift $((OPTIND - 1))
