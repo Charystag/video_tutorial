@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 declare RED="\e[0;31m"
+declare GRN="\e[0;32m"
 declare CRESET="\e[0m"
 
 declare -a commands
@@ -11,22 +12,26 @@ declare -a descriptions
 #commands+=( "ls" "ls includes sources" "bat includes/Test.h" "bat sources/Test.cpp" "c++ -c sources/Test.cpp -o Test.o -iquote includes" )
 #commands+=( "ls" )
 
+trap "exec 3<&-" EXIT
 
 next_instruction(){
+	local tmp_var
+
 	if [ "$manual_skip" -eq 0 ]
 	then
 		sleep "$1"
 	else
-		read -r -s -n 1
+		read -s -r -n 1 -u 3
 	fi
 }
 
 print_command(){
 	local command="$1"
 	local description="$2"
+	local prompt=">>>"
 
-	echo -n ">$command"
-	if [ "$description" != "" ] ; then echo " <-> $description"; else echo ""; fi
+	echo -n -e "${GRN}$prompt${CRESET}$command"
+	if [ "$description" != "" ] ; then echo " #$description"; else echo ""; fi
 	next_instruction "$timer"
 }
 
@@ -86,7 +91,7 @@ parse_options(){
 		s)
 			separator="$OPTARG";;
 		m)
-			manual_skip=1;;
+			if [ "$manual_skip" -eq "0" ] ; then manual_skip=1 ; fi ;;
 		t)
 			if [ "$manual_skip" -eq "0" ] ; then timer="$OPTARG"; fi;;
 		?)
@@ -127,6 +132,7 @@ main(){
 	declare	-i timer=5
 	declare	-i manual_skip=0
 
+	exec 3</dev/tty
 	parse_options "$@"
 	shift $((OPTIND - 1))
 	commands_file="$1"
