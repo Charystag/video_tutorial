@@ -30,22 +30,24 @@ print_command(){
 	local description="$2"
 	local prompt=">>>"
 
-	echo -n -e "${GRN}$prompt${CRESET}$command"
-	if [ "$description" != "" ] ; then echo " #$description"; else echo ""; fi
-	next_instruction "$timer"
+	if [ "$description" != "" ] ; then echo "#$description" ; fi
+	echo -e "${GRN}$prompt${CRESET}$command"
+#	next_instruction "$timer"
 }
 
 print_and_run(){
 	local command="$1"
 	local description="$2"
+	local -i printable=1
 
 	if [ "$command" = "" ]; then command=":"; fi
 	if [ "$description" = "" ]; then description="" ; fi
 	clear
 	if [ "${command:0:1}" != "@" ] ; then print_command "$command" "$description"
-	else command="${command:1}" ; fi
+	else command="${command:1}" ; printable=0; fi
 	if ! eval "$command" ; then return 1; fi
-	next_instruction "$timer"
+	if [ "$printable" -eq "1" ] ; then
+	next_instruction "$timer" ; fi
 }
 
 run_commands_files(){
