@@ -12,7 +12,7 @@ declare -a descriptions
 #commands+=( "ls" "ls includes sources" "bat includes/Test.h" "bat sources/Test.cpp" "c++ -c sources/Test.cpp -o Test.o -iquote includes" )
 #commands+=( "ls" )
 
-trap "exec 3<&-" EXIT
+trap "exec 7<&-" EXIT
 
 next_instruction(){
 	local tmp_var
@@ -55,11 +55,16 @@ run_commands_files(){
 	declare description
 	declare commands_file="$1"
 	declare descriptions_file="$2"
+	declare	tmp_file
 
 	if [ "$commands_file" == "" ] ; then echo "Please provide at least a commands file "; exit 1; fi
-	paste "$commands_file" "$descriptions_file" | while IFS=$'\t' read -r command description
+	tmp_file="$(mktemp)"
+	paste "$commands_file" "$descriptions_file" > "$tmp_file"
+	6<"$tmp_file"
+	while IFS=$'\t' read -r command description -u 6
 		do if ! print_and_run "$command" "$description"; then echo -e "Error while running : ${RED}$command${CRESET}" ; exit 1; fi
 	done
+	6<&-
 }
 
 run_commands_file(){
@@ -68,10 +73,12 @@ run_commands_file(){
 	declare	commands_file="$1"
 
 	if [ "$commands_file" == "" ] ; then echo "Please provide at least a commands file "; exit 1; fi
-	while IFS="|" read -r command description
+	6<"$commands_file"
+	while IFS="|" read -r command description -u 6
 	do
 		if ! print_and_run "$command" "$description"; then echo -e "Error while running : ${RED}$command${CRESET}" ; exit 1; fi
-	done < "$commands_file"
+	done
+	6<&-
 
 }
 
@@ -134,7 +141,7 @@ main(){
 	declare	-i timer=5
 	declare	-i manual_skip=0
 
-	exec 3</dev/tty
+	exec 7</dev/tty
 	parse_options "$@"
 	shift $((OPTIND - 1))
 	commands_file="$1"
