@@ -21,7 +21,7 @@ next_instruction(){
 	then
 		sleep "$1"
 	else
-		read -s -r -n 1 -u 3
+		read -s -r -n 1 -u 7
 	fi
 }
 
@@ -60,11 +60,10 @@ run_commands_files(){
 	if [ "$commands_file" == "" ] ; then echo "Please provide at least a commands file "; exit 1; fi
 	tmp_file="$(mktemp)"
 	paste "$commands_file" "$descriptions_file" > "$tmp_file"
-	6<"$tmp_file"
-	while IFS=$'\t' read -r command description -u 6
-		do if ! print_and_run "$command" "$description"; then echo -e "Error while running : ${RED}$command${CRESET}" ; exit 1; fi
-	done
-	6<&-
+	while IFS=$'\t' read -r -u 6 command description
+		do if ! print_and_run "$command" "$description"; then echo -e "Error while running : ${RED}$command${CRESET}" ; rm "$tmp_file" ; exit 1; fi
+	done 6<"$tmp_file"
+	rm "$tmp_file"
 }
 
 run_commands_file(){
@@ -73,13 +72,10 @@ run_commands_file(){
 	declare	commands_file="$1"
 
 	if [ "$commands_file" == "" ] ; then echo "Please provide at least a commands file "; exit 1; fi
-	6<"$commands_file"
-	while IFS="|" read -r command description -u 6
+	while IFS="|" read -r -u 6 command description
 	do
 		if ! print_and_run "$command" "$description"; then echo -e "Error while running : ${RED}$command${CRESET}" ; exit 1; fi
-	done
-	6<&-
-
+	done 6<"$commands_file"
 }
 
 run_commands_arrays(){
