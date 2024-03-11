@@ -31,12 +31,15 @@ which will allow you to run the script with its arguments but without any instal
 
 2.	You can install the script in the required location by replacing the path "$HOME/.local/bin/video.sh" by the path 
 to the file you want to install the script in. This command line will also add the target directory to the path
+
 ```bash
 if [ ! -f "$HOME/.local/bin/video.sh" ]
-	then curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/nsainton/video_tutorial/master/video.sh -o "$HOME/.local/bin/video.sh" &&
-	if { echo "$PATH" | grep "$HOME/.local/bin" }
-		then echo "PATH=$HOME/.local/bin:$PATH" >> "$HOME/.$(basename $SHELL)rc"; echo "Path : `$HOME/.local/bin added to path' ; . "$HOME/.$(basename $SHELL)rc"
-	fi
+	then curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/nsainton/video_tutorial/master/video.sh -o "$HOME/.local/bin/video.sh" \
+	&& { if { echo "$PATH" | grep "$HOME/.local/bin" ; }
+		then echo "PATH=\"$HOME/.local/bin:$PATH\"" >> "$HOME/.$(basename $SHELL)rc"; echo "Path : \`$HOME/.local/bin added to path'" ; . "$HOME/.$(basename $SHELL)rc" ; fi ; } \
+	&& echo "Script installed at : $HOME/.local/bin/video.sh"
+else
+	echo "Script already installed at : $HOME/.local/bin/video.sh"
 fi
 ```
 
