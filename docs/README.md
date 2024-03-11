@@ -8,12 +8,35 @@ in a terminal window
 
 1.	[How to use this script ?](#How-to-use-this-script-?)
 2.	[Why this Script ?](#Why-this-Script-?)
+3.	[Technical Considerations](#Technical-Considerations)
+4.	[Contributing](#Contributing)
+5.	[Demo Video](#Demo-Video)
 
 # How to use this script ?
 
 As this Script allows to provide commands and descriptions to show how a given 
 process is executed, one needs to provide commands and descriptions to the script
 in order to print them.
+
+## Invocation
+
+There are two ways to run this script : 
+1.	You can run the script running the following command :
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/video_tutorial/master/video.sh)
+```
+which will allow you to run the script with its arguments but without any installation required.
+
+2.	You can install the script in the required location by replacing the path "$HOME/.local/bin/video.sh" by the path 
+to the file you want to install the script in. This command line will also add the target directory to the path
+```bash
+if [ ! -f "$HOME/.local/bin/video.sh" ]
+	then curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/nsainton/video_tutorial/master/video.sh -o "$HOME/.local/bin/video.sh" &&
+	if { echo "$PATH" | grep "$HOME/.local/bin" }
+		then echo "PATH=$HOME/.local/bin:$PATH" >> "$HOME/.$(basename $SHELL)rc"; echo "Path : `$HOME/.local/bin added to path' ; . "$HOME/.$(basename $SHELL)rc"
+	fi
+fi
+```
 
 ## A single file that stores the commands and the descriptions (recommended way)
 
@@ -84,3 +107,28 @@ for the descriptions
 > all rows empty instead of the 3rd one which will contain the description of the 3rd command.
 
 # Why this Script ?
+
+This Script came to life because I wanted to be able to execute a sequence of commands in order to demonstrate how my other scripts worked.<br/>
+I couldn't bear having to manually write (with mistakes and corrections) the commands to my terminal window in order to showcase how a given 
+script works.
+
+## Why is it useful and what problems does it solve ?
+
+The video script solves the problem of needing to manually write the commands in order to make any demonstration/presentation. <br/>
+It empowers the user to run any script (even a script that needs to read from the command line) in order to focus only on what matters, which is 
+providing explanations about how the script works.
+
+# Technical Considerations
+
+This script uses file descriptors 6 and 7 to read input (from either files or the command line) so it doesn't conflict with any script that reads 
+from standard input or any file descriptor that is not 6 or 7.
+
+# Contributing
+There are two ways to contribute to this project
+- Send me a message on discord (for 42 students) or to the following [email](mailto:nsainton@student.42.fr?subject=[video_tutorial])
+- Pull requests that are currently closed but are going to be oppened soon for you to add all your amazing features to the project
+
+# Demo Video
+
+Click on the picture to open the video on youtube
+
