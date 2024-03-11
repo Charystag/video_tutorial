@@ -1,13 +1,15 @@
 # Video Tutorial
 
+> :fr: French documentation available [here](/docs/README.fr.md)
+
 This script allows its user to selectively run a sequence of commands
 in order to illustrate a process without having to type all such commands
 in a terminal window
 
 # Table of Contents
 
-1.	[How to use this script ?](#How-to-use-this-script-?)
-2.	[Why this Script ?](#Why-this-Script-?)
+1.	[How to use this script ?](#how-to-use-this-script-)
+2.	[Why this Script ?](#why-this-Script-)
 3.	[Technical Considerations](#Technical-Considerations)
 4.	[Contributing](#Contributing)
 5.	[Demo Video](#Demo-Video)
