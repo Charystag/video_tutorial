@@ -1,0 +1,12 @@
+@tempdir="$(mktemp -d)"
+@basedir="$(pwd)"
+@cd "$tempdir"
+ls
+echo bonjour
+bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh)
+touch test_file
+ls
+echo salut
+@cd "$basedir"
+echo "$(pwd)"
+@rm -rf "$tempdir"

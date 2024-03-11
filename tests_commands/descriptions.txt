@@ -1,0 +1,8 @@
+
+
+
+listing files of the directory
+echoing bonjour
+Calling man_reader script and running them from command line
+Creating a test file to check if everything is working well
+Listing files of the directory
