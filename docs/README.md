@@ -79,6 +79,8 @@ You can run bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man\_re
 An example of the configuration with the single file for commands and descriptions is available 
 [here](/tests_commands/commands_and_descriptions.txt)
 
+> :bulb: To test this file you can run : `./video.sh commands_file`
+
 ## Commands and descriptions splitted in two files
 
 The user can input the commands and descriptions in two distincts files that will take the 
@@ -94,7 +96,7 @@ command 3
 command 6
 @command 7
 ```
-for the commands 
+for the commands.
 
 And the file : 
 ```bash
@@ -106,6 +108,12 @@ description 3
 description 6
 ```
 for the descriptions
+
+Here is an example of a [commands file](/tests_commands/commands.txt) and a [descriptions file](/tests_commands/descriptions.txt) one could 
+use to run the Script with.<br/>
+
+> :bulb: To test these files you can run : `./video.sh commands_file descriptions_file`
+
 
 > :warning: The only requirement here is that the row index of the description has to match the row index of the command it describes.
 > For example : if one was to describe only the 3rd command in a script, they would have to create a description file with 
