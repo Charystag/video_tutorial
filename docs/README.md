@@ -69,7 +69,10 @@ be specified with the option -s separator.
 One can use the special form $'string' (like $'\t') for example, which will ensure the 
 translation of the escape sequence by the shell.
 
-You can run bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man\_reader/master/man\_reader.sh) bash QUOTING
+You can run the following command : 
+```bash
+bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man\_reader/master/man\_reader.sh) bash QUOTING
+```
 
 </blockquote>
 
