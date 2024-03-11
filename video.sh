@@ -72,7 +72,7 @@ run_commands_file(){
 	declare	commands_file="$1"
 
 	if [ "$commands_file" == "" ] ; then echo "Please provide at least a commands file "; exit 1; fi
-	while IFS="|" read -r -u 6 command description
+	while IFS="$separator" read -r -u 6 command description
 	do
 		if ! print_and_run "$command" "$description"; then echo -e "Error while running : ${RED}$command${CRESET}" ; exit 1; fi
 	done 6<"$commands_file"
@@ -100,7 +100,7 @@ parse_options(){
 		t)
 			if [ "$manual_skip" -eq "0" ] ; then timer="$OPTARG"; fi;;
 		?)
-			echo "Usage: ${0}: [-s separator] [commands_file [descriptions_file]]"; exit 2;;
+			echo "Usage: ${0}: [-s separator] [-m] [-t time] [commands_file [descriptions_file]]"; exit 2;;
 	esac
 	done
 }
