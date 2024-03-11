@@ -19,7 +19,30 @@ in order to print them.
 
 The user can input the commands and the descriptions in a single file that will 
 take the form of the following file :
-```txt
+```bash
+command 1 | Description 1
+command 2
+command 3 | Description 3
+command 4
+@command 5
+@command 6
+command 7 | Description 7
 ```
+
+In this example, we can observe that there are 3 ways to run a command in a sequence with 
+this script.
+1.	command | Description : The command is to be specified alongside the description on the 
+same line separated by a separator. The default separator is \`|' but another separator can 
+be specified with the option -s separator.
+
+<blockquote>
+
+:bulb: To specify a separator that is an escape sequence (like '\t' for example)<br/>
+One can use the special form $'string' (like $'\t') for example, which will ensure the 
+translation of the escape sequence by the shell.
+
+You can run bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man\_reader/master/man\_reader.sh) bash QUOTING
+
+</blockquote>
 
 # Why this Script ?
