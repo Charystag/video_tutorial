@@ -45,4 +45,42 @@ You can run bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man\_re
 
 </blockquote>
 
+2.	command : The command will be printed and run but without any descriptive message
+3.	@command : The command will be run without being printed (useful for configuration/cleanup commands)
+
+An example of the configuration with the single file for commands and descriptions is available 
+[here](/tests_commands/commands_and_descriptions.txt)
+
+## Commands and descriptions splitted in two files
+
+The user can input the commands and descriptions in two distincts files that will take the 
+form of the followings : 
+
+The file : 
+```bash
+command 1
+command 2
+command 3
+@command 4
+@command 5
+command 6
+@command 7
+```
+for the commands 
+
+And the file : 
+```bash
+
+
+description 3
+
+
+description 6
+```
+for the descriptions
+
+> :warning: The only requirement here is that the row index of the description has to match the row index of the command it describes.
+> For example : if one was to describe only the 3rd command in a script, they would have to create a description file with 
+> all rows empty instead of the 3rd one which will contain the description of the 3rd command.
+
 # Why this Script ?
