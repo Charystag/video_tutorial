@@ -3,7 +3,7 @@
 @cd "$tempdir"
 ls	listing files of the directory
 echo bonjour	echoing bonjour
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh)	Calling man_reader script and running them from command line
+bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh)	Calling man_reader script and running it from command line
 touch test_file	Creating a test file to check if everything is working well
 ls	Listing files of the directory
 echo salut
