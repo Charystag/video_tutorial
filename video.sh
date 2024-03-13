@@ -32,7 +32,7 @@ print_command(){
 
 	if [ "$description" != "" ] ; then echo "#$description" ; fi
 	echo -e "${GRN}$prompt${CRESET}$command"
-#	next_instruction "$timer"
+	next_instruction "$timer"
 }
 
 print_and_run(){
