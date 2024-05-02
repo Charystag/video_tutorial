@@ -7,12 +7,8 @@ declare CRESET="\e[0m"
 declare -a commands
 declare -a descriptions
 
-#commands+=( "ls" )
-#commands+=( "bash <(curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/nsainton/classcreator/main/classcreator.sh || echo exit 1) Test includes sources" )
-#commands+=( "ls" "ls includes sources" "bat includes/Test.h" "bat sources/Test.cpp" "c++ -c sources/Test.cpp -o Test.o -iquote includes" )
-#commands+=( "ls" )
-
 trap "exec 7<&-; echo 'Bye...'" EXIT
+#it's just an end clap
 
 next_instruction(){
 	local tmp_var
@@ -88,7 +84,7 @@ run_commands_arrays(){
 	Function that allows the parsing of the programm options using the getopts (and not getopt) POSIX utility
 	PARSE_OPTIONS
 parse_options(){
-	declare optstring="s:mt:"
+	declare optstring="s:mt:h"
 	declare	option
 
 	while getopts "$optstring" option; do
@@ -99,6 +95,8 @@ parse_options(){
 			if [ "$manual_skip" -eq "0" ] ; then manual_skip=1 ; fi ;;
 		t)
 			if [ "$manual_skip" -eq "0" ] ; then timer="$OPTARG"; fi;;
+		h)
+			help ; exit 0 ;;
 		?)
 			echo "Usage: ${0}: [-s separator] [-m] [-t time] [commands_file [descriptions_file]]"; exit 2;;
 	esac
