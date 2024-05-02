@@ -4,6 +4,6 @@
 @if [ ! -f "video.sh" ] ; then curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/nsainton/video_tutorial/master/video.sh -O || return 1 ; fi
 @if [ ! -f "commands_and_descriptions.txt" ] ; then curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/nsainton/video_tutorial/master/tests_commands/commands_and_descriptions.txt -O || return 1;fi
 @if [ ! -f "commands.txt" ] ; then curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/nsainton/video_tutorial/master/tests_commands/commands.txt -O || return 1 ; fi
-@if [ ! -f "descriptions.txt" ] ; then curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/nsainton/video_tutorial/master/tests_commands/description.txt -O || return 1;fi
+@if [ ! -f "descriptions.txt" ] ; then curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/nsainton/video_tutorial/master/tests_commands/descriptions.txt -O || return 1;fi
 ls	listing files of the current directory
-./video.sh commands_and_descriptions.txt
+bash video.sh -s $'\t' commands_and_descriptions.txt

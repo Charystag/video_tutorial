@@ -12,7 +12,7 @@ declare -a descriptions
 #commands+=( "ls" "ls includes sources" "bat includes/Test.h" "bat sources/Test.cpp" "c++ -c sources/Test.cpp -o Test.o -iquote includes" )
 #commands+=( "ls" )
 
-trap "exec 7<&-" EXIT
+trap "exec 7<&-; echo 'Bye...'" EXIT
 
 next_instruction(){
 	local tmp_var
