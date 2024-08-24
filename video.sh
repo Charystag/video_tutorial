@@ -27,7 +27,7 @@ print_command(){
 	local prompt=">>>"
 
 	if [ "$description" != "" ] ; then echo "#$description" ; fi
-	echo -e "${GRN}$prompt${CRESET}$command"
+	printf "%b\n" "${GRN}$prompt${CRESET}$command"
 	next_instruction "$timer"
 }
 
