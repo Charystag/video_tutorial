@@ -19,14 +19,14 @@ Comme ce script permet de fournir des commandes et des descriptions pour montrer
 Il existe deux façons d'exécuter ce script :
 1.	Vous pouvez exécuter le script en exécutant la commande suivante :
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/video_tutorial/master/video.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/Charystag/video_tutorial/master/video.sh)
 ```
 ce qui vous permettra d'exécuter le script avec ses arguments mais sans aucune installation requise.
 
 2.	Vous pouvez installer le script à l'emplacement requis en remplaçant le chemin "$HOME/.local/bin/video.sh" par le chemin du fichier dans lequel vous souhaitez installer le script. Cette ligne de commande ajoutera également le répertoire cible au chemin
 ```bash
 if [ ! -f "$HOME/.local/bin/video.sh" ]
-    then curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/nsainton/video_tutorial/master/video.sh -o "$HOME/.local/bin/video.sh" \
+    then curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/Charystag/video_tutorial/master/video.sh -o "$HOME/.local/bin/video.sh" \
     && { if { echo "$PATH" | grep "$HOME/.local/bin" ; }
         then echo "PATH=\"$HOME/.local/bin:$PATH\"" >> "$HOME/.$(basename $SHELL)rc"; echo "Path : \`$HOME/.local/bin added to path'" ; . "$HOME/.$(basename $SHELL)rc" ; fi ; } \
     && echo "Script installed at : $HOME/.local/bin/video.sh"
@@ -57,7 +57,7 @@ Dans cet exemple, nous pouvons observer qu'il existe 3 façons d'exécuter une c
 
 Vous pouvez lancer la commande : 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man_reader/master/man_reader.sh) bash QUOTING
+bash <(curl -fsSL https://raw.githubusercontent.com/Charystag/man_reader/master/man_reader.sh) bash QUOTING
 ```
 
 </blockquote>
@@ -118,7 +118,7 @@ Ce script utilises les descripteurs de fichiers 6 et 7 pour récupérer ses inpu
 
 # Contribuer
 Il y a plusieurs façons de contribuer à ce projet :
-1.	En m'envoyant un message sur discord (pour les étudiants de 42) ou par [email](mailto:nsainton@student.42.fr?subject=[video_tutorial])
+1.	En m'envoyant un message sur discord (pour les étudiants de 42) ou par [email](mailto:Charystag@proton.me?subject=[video_tutorial])
 2.	Les Pull Requests sont pour le moment fermées mais seront bientôt ouvertes pour que vous puissiez ajouter toutes vos features au projet.
 
 # Vidéo de démonstration

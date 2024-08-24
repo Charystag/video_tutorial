@@ -25,7 +25,7 @@ in order to print them.
 There are two ways to run this script : 
 1.	You can run the script running the following command :
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/video_tutorial/master/video.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/Charystag/video_tutorial/master/video.sh)
 ```
 which will allow you to run the script with its arguments but without any installation required.
 
@@ -34,7 +34,7 @@ to the file you want to install the script in. This command line will also add t
 
 ```bash
 if [ ! -f "$HOME/.local/bin/video.sh" ]
-	then curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/nsainton/video_tutorial/master/video.sh -o "$HOME/.local/bin/video.sh" \
+	then curl -fsSL --connect-timeout 10 https://raw.githubusercontent.com/Charystag/video_tutorial/master/video.sh -o "$HOME/.local/bin/video.sh" \
 	&& { if { echo "$PATH" | grep "$HOME/.local/bin" ; }
 		then echo "PATH=\"$HOME/.local/bin:$PATH\"" >> "$HOME/.$(basename $SHELL)rc"; echo "Path : \`$HOME/.local/bin added to path'" ; . "$HOME/.$(basename $SHELL)rc" ; fi ; } \
 	&& echo "Script installed at : $HOME/.local/bin/video.sh"
@@ -71,7 +71,7 @@ translation of the escape sequence by the shell.
 
 You can run the following command : 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nsainton/man\_reader/master/man\_reader.sh) bash QUOTING
+bash <(curl -fsSL https://raw.githubusercontent.com/Charystag/man\_reader/master/man\_reader.sh) bash QUOTING
 ```
 
 </blockquote>
@@ -141,7 +141,7 @@ from standard input or any file descriptor that is not 6 or 7.
 
 # Contributing
 There are two ways to contribute to this project
-- Send me a message on discord (for 42 students) or to the following [email](mailto:nsainton@student.42.fr?subject=[video_tutorial])
+- Send me a message on discord (for 42 students) or to the following [email](mailto:Charystag@proton.me?subject=[video_tutorial])
 - Pull requests that are currently closed but are going to be oppened soon for you to add all your amazing features to the project
 
 # Demo Video
