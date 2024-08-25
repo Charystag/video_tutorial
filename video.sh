@@ -57,7 +57,7 @@ run_commands_files(){
 	tmp_file="$(mktemp)"
 	paste "$commands_file" "$descriptions_file" > "$tmp_file"
 	while IFS=$'\t' read -r -u 6 command description
-		do if ! print_and_run "$command" "$description"; then echo -e "Error while running : ${RED}$command${CRESET}" ; rm "$tmp_file" ; exit 1; fi
+		do if ! print_and_run "$command" "$description"; then printf "%b\n" "Error while running : ${RED}$command${CRESET}" ; rm "$tmp_file" ; exit 1; fi
 	done 6<"$tmp_file"
 	rm "$tmp_file"
 }
@@ -70,13 +70,13 @@ run_commands_file(){
 	if [ "$commands_file" == "" ] ; then echo "Please provide at least a commands file "; exit 1; fi
 	while IFS="$separator" read -r -u 6 command description
 	do
-		if ! print_and_run "$command" "$description"; then echo -e "Error while running : ${RED}$command${CRESET}" ; exit 1; fi
+		if ! print_and_run "$command" "$description"; then printf "%b\n" "Error while running : ${RED}$command${CRESET}" ; exit 1; fi
 	done 6<"$commands_file"
 }
 
 run_commands_arrays(){
 	for (( i = 0; i<${#commands[@]}; ++i ))
-	do if ! print_and_run "${commands[$i]}" "${descriptions[$i]}"; then echo -e "Error while running : ${RED}${commands[$i]}${CRESET}"; exit 1; fi
+	do if ! print_and_run "${commands[$i]}" "${descriptions[$i]}"; then printf "%b\n" "Error while running : ${RED}${commands[$i]}${CRESET}"; exit 1; fi
 	done
 }
 
